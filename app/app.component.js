@@ -10,7 +10,6 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 require('./rxjs-operators');
-var forminfo_1 = require('./forminfo');
 var trademe_api_service_1 = require('./trademe.api.service');
 var assess_service_1 = require('./assess.service');
 var AppComponent = (function () {
@@ -31,16 +30,24 @@ var AppComponent = (function () {
         }
     };
     AppComponent.prototype.processCars = function (cars, formInfo) {
-        this.simularCars = cars;
-        this.assess(formInfo);
+        if (cars && cars.length > 0) {
+            this.simularCars = cars;
+            this.assess(formInfo);
+        }
+        else {
+            this.errorMessage = "Can not assess, since no relative data found. Please choose Toyota RAV4 with the trademe sandbox";
+        }
     };
     AppComponent.prototype.assess = function (formInfo) {
-        this.assessment = this.assessService.assess(this.simularCars, formInfo, forminfo_1.FormInfo);
+        this.assessment = this.assessService.assess(this.simularCars, formInfo);
     };
     AppComponent.prototype.onStart = function (formInfo) {
         var _this = this;
         this.trademeService.querySimularCars(formInfo)
             .then(function (simularCars) { return _this.checkCars(simularCars, formInfo); }, function (error) { return _this.errorMessage = error; });
+    };
+    AppComponent.prototype.onError = function (message) {
+        this.errorMessage = message;
     };
     AppComponent = __decorate([
         core_1.Component({

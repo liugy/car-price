@@ -24,6 +24,8 @@ export class FormComponent {
   selectedKilometers:number;
   @Output() 
   onStart = new EventEmitter<FormInfo>();
+  @Output()
+  onError = new EventEmitter<string>();
 
   constructor(private trademeService: TrademeApiService) {}
   ngOnInit() {
@@ -34,9 +36,17 @@ export class FormComponent {
   getMakers() {
         this.trademeService.getMakers()
                      .then(
-                       makers => this.makers = makers,
-                       error =>  this.errorMessage = <any>error);
+                       makers => this.initMakers(makers),
+                       error =>  this.handleError(<any>error));
  
+  }
+  private initMakers(newMakers:Maker[]){
+      this.makers = newMakers;
+      if(this.makers && this.makers.length >0)
+        this.changeMaker(this.makers[0].Number);
+  }
+  private handleError(message:string){
+      this.onError.emit(message);
   }
   changeMaker(newMakerNumber:string){
       this.selectedModel = null;
@@ -50,27 +60,31 @@ export class FormComponent {
         this.trademeService.searchModels(newMakerNumber)
                      .then(
                        models => this.models = models,
-                       error =>  this.errorMessage = <any>error); 
+                       error =>  this.handleError(<any>error)); 
       
   }
   changeModel(newModel:string){
       this.selectedModel = newModel;
-      console.log(this.selectedModel);
   }
   changeYear(newYear: string){
       this.selectedYear = Number(newYear);
-      console.log(this.selectedYear);
   }
   changeKilometers(newKilo: string){
-      try{
+      console.log(newKilo);
           this.selectedKilometers = Number(newKilo);
-          
-      }catch(ex){
-          //todo: handle error here.    
-      }
+          if (isNaN(this.selectedKilometers)){
+             this.handleError("Please input number in Kilometres field");    
+
+          }
+          console.log(this.selectedKilometers);
   }
   clickStart(){
-      
+      if (isNaN(this.selectedKilometers)){
+        this.handleError("Please input number in Kilometres field");    
+        return ;
+      }
+      if (!this.models || this.models.length == 0) return ;
+      this.handleError(null);
       this.onStart.emit(new FormInfo(this.selectedMakeName || this.makers[0].Name, 
                                     this.selectedModel || this.models[0].Value,
                                     this.selectedYear || Number(this.years[0].Value),

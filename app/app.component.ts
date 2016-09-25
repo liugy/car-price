@@ -25,11 +25,15 @@ export class AppComponent {
       }
   }
   private processCars(cars:CarInfo[], formInfo:FormInfo){
-      this.simularCars = cars;
-      this.assess(formInfo);
+      if(cars && cars.length >0){
+        this.simularCars = cars;
+        this.assess(formInfo);
+      }else{
+          this.errorMessage = "Can not assess, since no relative data found. Please choose Toyota RAV4 with the trademe sandbox";
+      }
   }
   private assess(formInfo:FormInfo){
-      this.assessment = this.assessService.assess(this.simularCars, formInfo:FormInfo);
+      this.assessment = this.assessService.assess(this.simularCars, formInfo);
   }
   constructor(private trademeService: TrademeApiService,
               private assessService: AssessService) {}
@@ -40,6 +44,9 @@ export class AppComponent {
                        simularCars => this.checkCars( simularCars ,formInfo),
                        error =>  this.errorMessage = <any>error);
 
+  }
+  onError(message:string){
+      this.errorMessage = message;
   }
 }
 

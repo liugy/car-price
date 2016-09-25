@@ -2,11 +2,13 @@
     <assessor-title></assessor-title>
 </div>
 <div class="row">
-    <assessor-form (onStart)="onStart($event)"></assessor-form>
+    <assessor-form (onStart)="onStart($event)" (onError)="onError($event)"></assessor-form>
 </div>
 <div class="row">
 <!--    <assessor-progress></assessor-progress>-->
-    <assessor-result [assessment]="assessment"></assessor-result>
+    <assessor-result *ngIf="assessment >0" [assessment]="assessment"></assessor-result>
+    <assessor-error *ngIf="errorMessage" [errorMessage]="errorMessage"></assessor-error>
+
 </div>
 <div class="row">
     <assessor-simular-cars [simularCars]="simularCars"></assessor-simular-cars>

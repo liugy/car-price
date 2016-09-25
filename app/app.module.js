@@ -20,6 +20,7 @@ var result_component_1 = require('./result/result.component');
 var siumlar_cars_component_1 = require('./siumlar/siumlar.cars.component');
 var trademe_api_service_1 = require('./trademe.api.service');
 var assess_service_1 = require('./assess.service');
+var error_component_1 = require('./error.component');
 var AppModule = (function () {
     function AppModule() {
     }
@@ -36,7 +37,8 @@ var AppModule = (function () {
                 form_component_1.FormComponent,
                 progress_component_1.ProgressComponent,
                 result_component_1.ResultComponent,
-                siumlar_cars_component_1.SimularCarsComponent],
+                siumlar_cars_component_1.SimularCarsComponent,
+                error_component_1.ErrorComponent],
             providers: [trademe_api_service_1.TrademeApiService, assess_service_1.AssessService],
             bootstrap: [app_component_1.AppComponent]
         }), 

@@ -19,6 +19,7 @@ var FormComponent = (function () {
         this.isAssessing = false;
         this.mode = 'Promise';
         this.onStart = new core_1.EventEmitter();
+        this.onError = new core_1.EventEmitter();
     }
     FormComponent.prototype.ngOnInit = function () {
         this.years = mock_years_1.YEARS;
@@ -27,7 +28,15 @@ var FormComponent = (function () {
     FormComponent.prototype.getMakers = function () {
         var _this = this;
         this.trademeService.getMakers()
-            .then(function (makers) { return _this.makers = makers; }, function (error) { return _this.errorMessage = error; });
+            .then(function (makers) { return _this.initMakers(makers); }, function (error) { return _this.handleError(error); });
+    };
+    FormComponent.prototype.initMakers = function (newMakers) {
+        this.makers = newMakers;
+        if (this.makers && this.makers.length > 0)
+            this.changeMaker(this.makers[0].Number);
+    };
+    FormComponent.prototype.handleError = function (message) {
+        this.onError.emit(message);
     };
     FormComponent.prototype.changeMaker = function (newMakerNumber) {
         var _this = this;
@@ -43,24 +52,30 @@ var FormComponent = (function () {
             return;
         }
         this.trademeService.searchModels(newMakerNumber)
-            .then(function (models) { return _this.models = models; }, function (error) { return _this.errorMessage = error; });
+            .then(function (models) { return _this.models = models; }, function (error) { return _this.handleError(error); });
     };
     FormComponent.prototype.changeModel = function (newModel) {
         this.selectedModel = newModel;
-        console.log(this.selectedModel);
     };
     FormComponent.prototype.changeYear = function (newYear) {
         this.selectedYear = Number(newYear);
-        console.log(this.selectedYear);
     };
     FormComponent.prototype.changeKilometers = function (newKilo) {
-        try {
-            this.selectedKilometers = Number(newKilo);
+        console.log(newKilo);
+        this.selectedKilometers = Number(newKilo);
+        if (isNaN(this.selectedKilometers)) {
+            this.handleError("Please input number in Kilometres field");
         }
-        catch (ex) {
-        }
+        console.log(this.selectedKilometers);
     };
     FormComponent.prototype.clickStart = function () {
+        if (isNaN(this.selectedKilometers)) {
+            this.handleError("Please input number in Kilometres field");
+            return;
+        }
+        if (!this.models || this.models.length == 0)
+            return;
+        this.handleError(null);
         this.onStart.emit(new forminfo_1.FormInfo(this.selectedMakeName || this.makers[0].Name, this.selectedModel || this.models[0].Value, this.selectedYear || Number(this.years[0].Value), this.selectedKilometers || 50000));
         //      this.isAssessing = true;
     };
@@ -68,6 +83,10 @@ var FormComponent = (function () {
         core_1.Output(), 
         __metadata('design:type', Object)
     ], FormComponent.prototype, "onStart", void 0);
+    __decorate([
+        core_1.Output(), 
+        __metadata('design:type', Object)
+    ], FormComponent.prototype, "onError", void 0);
     FormComponent = __decorate([
         core_1.Component({
             selector: 'assessor-form',
