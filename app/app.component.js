@@ -14,6 +14,9 @@ var AppComponent = (function () {
     function AppComponent() {
         this.title = "Alan's car assessment tool";
     }
+    AppComponent.prototype.onStart = function (carinfo) {
+        console.log(carinfo);
+    };
     AppComponent = __decorate([
         core_1.Component({
             selector: 'car-assessor-app',

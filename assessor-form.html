@@ -2,7 +2,7 @@
     <div class="row">
     <div class="form-group col-sm-3">
         <label for="makerNumber">Maker</label>
-        <select #makerNumber (change)="changeMaker(makerNumber.value); " class="form-control">
+        <select #makerNumber (change)="changeMaker(makerNumber.value);" class="form-control">
             <option *ngFor="let maker of makers" [value]="maker.Number">
                 {{ maker.Name }}
             </option>
@@ -10,15 +10,15 @@
     </div>
     <div class="form-group col-sm-3">
         <label for="modelValue">Model:</label> 
-        <select #modelValue class="form-control">
+        <select #modelValue (change)="changeModel(modelValue.value);" class="form-control">
             <option *ngFor="let model of models" [value]="model.Value">
                 {{ model.Display }}
             </option>
         </select>
     </div>
     <div class="form-group col-sm-2">
-        <label for="year">Year:</label> 
-        <select #yearValue class="form-control">
+        <label for="yearValue">Year:</label> 
+        <select #yearValue (change)="changeYear(yearValue.value);" class="form-control">
             <option *ngFor="let year of years" [value]="year.Value">
                 {{ year.Display }}
             </option>
@@ -27,7 +27,7 @@
     <div class="form-group col-sm-4">
         <label for="kilometres">Kilometres:</label>
         <div class="input-group">
-            <input type="text" class="form-control" id="kilometres"
+            <input #kilometres (change)="changeKilometers(kilometres.value);" type="text" class="form-control" 
                 placeholder="50,000" aria-describedby="basic-addon2"> <span
                 class="input-group-addon" id="basic-addon2">KM</span>
         </div>

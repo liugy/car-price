@@ -12,11 +12,13 @@ var core_1 = require('@angular/core');
 require('../rxjs-operators');
 var trademe_api_service_1 = require('../trademe.api.service');
 var mock_years_1 = require('../test/mock.years');
+var carinfo_1 = require('../carinfo');
 var FormComponent = (function () {
     function FormComponent(trademeService) {
         this.trademeService = trademeService;
         this.isAssessing = false;
         this.mode = 'Promise';
+        this.onStart = new core_1.EventEmitter();
     }
     FormComponent.prototype.ngOnInit = function () {
         this.years = mock_years_1.YEARS;
@@ -29,15 +31,43 @@ var FormComponent = (function () {
     };
     FormComponent.prototype.changeMaker = function (newMakerNumber) {
         var _this = this;
+        this.selectedModel = null;
+        for (var _i = 0, _a = this.makers; _i < _a.length; _i++) {
+            var entry = _a[_i];
+            if (entry.Number == newMakerNumber) {
+                this.selectedMakeName = entry.Name;
+                break;
+            }
+        }
         if (!newMakerNumber) {
             return;
         }
         this.trademeService.searchModels(newMakerNumber)
             .then(function (models) { return _this.models = models; }, function (error) { return _this.errorMessage = error; });
     };
-    FormComponent.prototype.clickStart = function () {
-        this.isAssessing = true;
+    FormComponent.prototype.changeModel = function (newModel) {
+        this.selectedModel = newModel;
+        console.log(this.selectedModel);
     };
+    FormComponent.prototype.changeYear = function (newYear) {
+        this.selectedYear = Number(newYear);
+        console.log(this.selectedYear);
+    };
+    FormComponent.prototype.changeKilometers = function (newKilo) {
+        try {
+            this.selectedKilometers = Number(newKilo);
+        }
+        catch (ex) {
+        }
+    };
+    FormComponent.prototype.clickStart = function () {
+        this.onStart.emit(new carinfo_1.CarInfo(this.selectedMakeName || this.makers[0].Name, this.selectedModel || this.models[0].Value, this.selectedYear || Number(this.years[0].Value), this.selectedKilometers || 50000));
+        //      this.isAssessing = true;
+    };
+    __decorate([
+        core_1.Output(), 
+        __metadata('design:type', Object)
+    ], FormComponent.prototype, "onStart", void 0);
     FormComponent = __decorate([
         core_1.Component({
             selector: 'assessor-form',
