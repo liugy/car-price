@@ -1,0 +1,87 @@
+"use strict";
+exports.YEARS = [
+    {
+        "Value": "2016",
+        "Display": "2016"
+    },
+    {
+        "Value": "2015",
+        "Display": "2015"
+    }, {
+        "Value": "2014",
+        "Display": "2014"
+    }, {
+        "Value": "2013",
+        "Display": "2013"
+    }, {
+        "Value": "2012",
+        "Display": "2012"
+    }, {
+        "Value": "2011",
+        "Display": "2011"
+    }, {
+        "Value": "2010",
+        "Display": "2010"
+    }, {
+        "Value": "2009",
+        "Display": "2009"
+    }, {
+        "Value": "2008",
+        "Display": "2008"
+    }, {
+        "Value": "2007",
+        "Display": "2007"
+    }, {
+        "Value": "2006",
+        "Display": "2006"
+    }, {
+        "Value": "2005",
+        "Display": "2005"
+    }, {
+        "Value": "2004",
+        "Display": "2004"
+    }, {
+        "Value": "2003",
+        "Display": "2003"
+    }, {
+        "Value": "2002",
+        "Display": "2002"
+    }, {
+        "Value": "2001",
+        "Display": "2001"
+    }, {
+        "Value": "2000",
+        "Display": "2000"
+    }, {
+        "Value": "1990",
+        "Display": "1990"
+    }, {
+        "Value": "1980",
+        "Display": "1980"
+    }, {
+        "Value": "1970",
+        "Display": "1970"
+    }, {
+        "Value": "1960",
+        "Display": "1960"
+    }, {
+        "Value": "1950",
+        "Display": "1950"
+    }, {
+        "Value": "1940",
+        "Display": "1940"
+    }, {
+        "Value": "1930",
+        "Display": "1930"
+    }, {
+        "Value": "1920",
+        "Display": "1920"
+    }, {
+        "Value": "1910",
+        "Display": "1910"
+    }, {
+        "Value": "1900",
+        "Display": "1900"
+    }
+];
+//# sourceMappingURL=mock.years.js.map

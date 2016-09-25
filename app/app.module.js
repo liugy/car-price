@@ -15,7 +15,6 @@ var http_1 = require('@angular/http');
 var app_component_1 = require('./app.component');
 var title_component_1 = require('./title/title.component');
 var form_component_1 = require('./form/form.component');
-var maker_component_1 = require('./form/maker.component');
 var progress_component_1 = require('./progress/progress.component');
 var result_component_1 = require('./result/result.component');
 var siumlar_cars_component_1 = require('./siumlar/siumlar.cars.component');
@@ -34,7 +33,6 @@ var AppModule = (function () {
                 app_component_1.AppComponent,
                 title_component_1.TitleComponent,
                 form_component_1.FormComponent,
-                maker_component_1.MakerComponent,
                 progress_component_1.ProgressComponent,
                 result_component_1.ResultComponent,
                 siumlar_cars_component_1.SimularCarsComponent],

@@ -1,24 +1,28 @@
 <form class="form-inline">
     <div class="row">
     <div class="form-group col-sm-3">
-        <label for="maker">Maker</label>
-        <assessor-maker></assessor-maker>
+        <label for="makerNumber">Maker</label>
+        <select #makerNumber (change)="changeMaker(makerNumber.value); " class="form-control">
+            <option *ngFor="let maker of makers" [value]="maker.Number">
+                {{ maker.Name }}
+            </option>
+        </select>
     </div>
     <div class="form-group col-sm-3">
-        <label for="model">Model:</label> <select class="form-control"
-            id="model">
+        <label for="modelValue">Model:</label> 
+        <select #modelValue class="form-control">
             <option *ngFor="let model of models" [value]="model.Value">
                 {{ model.Display }}
             </option>
         </select>
+
     </div>
     <div class="form-group col-sm-2">
-        <label for="year">Year:</label> <select class="form-control"
-            id="year">
-            <option>2016</option>
-            <option>2</option>
-            <option>3</option>
-            <option>4</option>
+        <label for="year">Year:</label> 
+        <select #yearValue class="form-control">
+            <option *ngFor="let year of years" [value]="year.Value">
+                {{ year.Display }}
+            </option>
         </select>
     </div>
     <div class="form-group col-sm-4">

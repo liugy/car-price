@@ -10,23 +10,40 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var http_1 = require('@angular/http');
-//import { CATEGORY }     from './test/mock.makers';
 var TrademeApiService = (function () {
     function TrademeApiService(http) {
         this.http = http;
-        this.makersUrl = 'http://api.trademe.co.nz/v1/Categories/UsedCars.json'; // URL to web API
+        this.makersUrl = 'http://api.trademe.co.nz/v1/Categories/UsedCars.json';
     }
+    TrademeApiService.prototype.searchModelUrl = function (catagoryNumber) {
+        return "https://api.trademe.co.nz/v1/Categories/" + catagoryNumber + "/Details.json";
+    };
     TrademeApiService.prototype.getMakers = function () {
         return this.http.get(this.makersUrl)
             .toPromise()
-            .then(this.extractData)
+            .then(this.extractMakers)
             .catch(this.handleError);
     };
-    TrademeApiService.prototype.extractData = function (res) {
+    TrademeApiService.prototype.searchModels = function (catagoryNumber) {
+        return this.http.get(this.searchModelUrl(catagoryNumber))
+            .toPromise()
+            .then(this.extractModels)
+            .catch(this.handleError);
+    };
+    TrademeApiService.prototype.extractMakers = function (res) {
         var body = res.json();
-        console.log("extraData:");
-        console.log(body);
-        return body.Subcategories || {};
+        return body.Subcategories || [];
+    };
+    TrademeApiService.prototype.extractModels = function (res) {
+        var body = res.json();
+        var attributes = body.Attributes;
+        for (var _i = 0, attributes_1 = attributes; _i < attributes_1.length; _i++) {
+            var entry = attributes_1[_i];
+            if (entry.Name == 'Model') {
+                return entry.Options;
+            }
+        }
+        return [];
     };
     TrademeApiService.prototype.handleError = function (error) {
         // In a real world app, we might use a remote logging infrastructure
