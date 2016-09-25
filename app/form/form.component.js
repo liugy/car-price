@@ -15,6 +15,7 @@ var mock_years_1 = require('../test/mock.years');
 var FormComponent = (function () {
     function FormComponent(trademeService) {
         this.trademeService = trademeService;
+        this.isAssessing = false;
         this.mode = 'Promise';
     }
     FormComponent.prototype.ngOnInit = function () {
@@ -34,7 +35,8 @@ var FormComponent = (function () {
         this.trademeService.searchModels(newMakerNumber)
             .then(function (models) { return _this.models = models; }, function (error) { return _this.errorMessage = error; });
     };
-    FormComponent.prototype.searchModels = function () {
+    FormComponent.prototype.clickStart = function () {
+        this.isAssessing = true;
     };
     FormComponent = __decorate([
         core_1.Component({

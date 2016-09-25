@@ -11,6 +11,7 @@ import { YEARS } from '../test/mock.years';
 })
 export class FormComponent {
  
+  isAssessing = false;
   errorMessage: string;
   mode = 'Promise';
   makers: Maker[];
@@ -38,6 +39,7 @@ export class FormComponent {
                        error =>  this.errorMessage = <any>error); 
       
   }
-  searchModels() {
+  clickStart(){
+      this.isAssessing = true;
   }
 }
