@@ -75,7 +75,6 @@ export class TrademeApiService {
     let result = new Array<CarInfo>();
     let body = res.json();
     let price: number;
-    console.log(body);
     
     for(let entry of body.List){
         try{

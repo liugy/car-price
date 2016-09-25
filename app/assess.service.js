@@ -76,6 +76,8 @@ var AssessService = (function () {
             total += pair.price;
             count++;
         }
+        if (count == 0)
+            return 0;
         return total / count;
     };
     AssessService.prototype.calcIndex = function (year, odometer) {

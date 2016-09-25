@@ -68,6 +68,7 @@ export class AssessService {
             total += pair.price;
             count ++;
         }
+        if (count ==0) return 0;
         return total/count;
     }
     private calcIndex(year:number, odometer:number):number{

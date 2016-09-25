@@ -12,6 +12,9 @@ var core_1 = require('@angular/core');
 var ResultComponent = (function () {
     function ResultComponent() {
     }
+    ResultComponent.prototype.getResultMessage = function () {
+        return "Can not assess since no data found.";
+    };
     __decorate([
         core_1.Input(), 
         __metadata('design:type', Number)

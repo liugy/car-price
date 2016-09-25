@@ -70,7 +70,6 @@ var TrademeApiService = (function () {
         var result = new Array();
         var body = res.json();
         var price;
-        console.log(body);
         for (var _i = 0, _a = body.List; _i < _a.length; _i++) {
             var entry = _a[_i];
             try {

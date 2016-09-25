@@ -4,6 +4,9 @@ import { Component, Input } from '@angular/core';
   templateUrl: 'assessor-result.html'
 })
 export class ResultComponent {
-      @Input() assessment: number;
+    @Input() assessment: number;
+    getResultMessage(): string{
+        return "Can not assess since no data found.";
+    }
 }
 
