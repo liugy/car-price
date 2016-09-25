@@ -1,23 +1,24 @@
 <form class="form-inline">
-    <div class="form-group">
+    <div class="row">
+    <div class="form-group col-sm-3">
         <label for="maker">Maker</label> <select class="form-control"
             id="maker">
-            <option>1</option>
-            <option>2</option>
-            <option>3</option>
-            <option>Toyota xxxxxxxxx</option>
+        
+            <option *ngFor="let maker of makers.Subcategories" [value]="maker.Number">
+                {{ maker.Name }}
+            </option>
+        
         </select>
     </div>
-    <div class="form-group">
+    <div class="form-group col-sm-3">
         <label for="model">Model:</label> <select class="form-control"
             id="model">
-            <option>1</option>
-            <option>2</option>
-            <option>3</option>
-            <option>4</option>
+            <option *ngFor="let model of models" [value]="model.Value">
+                {{ model.Display }}
+            </option>
         </select>
     </div>
-    <div class="form-group">
+    <div class="form-group col-sm-2">
         <label for="year">Year:</label> <select class="form-control"
             id="year">
             <option>1</option>
@@ -26,7 +27,7 @@
             <option>4</option>
         </select>
     </div>
-    <div class="form-group">
+    <div class="form-group col-sm-4">
         <label for="kilometres">Kilometres:</label>
         <div class="input-group">
             <input type="text" class="form-control" id="kilometres"
@@ -34,6 +35,11 @@
                 class="input-group-addon" id="basic-addon2">KM</span>
         </div>
     </div>
-
-    <button type="submit" class="btn btn-primary">Start</button>
+    </div>
+    <br>
+    <div class="row">
+  <div class="col-sm-12">
+     <button type="submit" class="btn btn-primary btn-block">Start Assessment</button>
+        </div>
+    </div>
 </form>

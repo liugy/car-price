@@ -1,0 +1,42 @@
+export class Category {
+  constructor(
+    public Name: string,
+    public Number: string) { }
+}
+
+
+/*
+
+{
+  "Name": "ABC",
+  "Number": "ABC",
+  "Path": "ABC",
+  "Subcategories": [
+    {
+    },
+    {
+    }
+  ],
+  "Count": 0,
+  "IsRestricted": false,
+  "HasLegalNotice": false,
+  "HasClassifieds": false
+}
+
+Name	String	The name of the category.
+Number	String	
+A unique identifier for the category e.g. “0004-0369-6076-“. We plan to change this to a numeric identifier (e.g. “6076”) so you should ensure you can cope with both formats.
+Path	String	
+The full URL path of this category e.g. “/Home-living/Beds-bedroom-furniture/Bedside-tables”.
+Subcategories	Collection of <Category>	
+The list of subcategories belonging to this category.
+(This type has already been defined)
+Count	Integer	
+The number of items for sale in this category.
+IsRestricted	Boolean	
+Indicates whether the category is restricted to adults only (i.e. the category is R18).
+HasLegalNotice	Boolean	
+Indicates whether the category has legal requirements. You should ask the user to accept the legal notice before listing in this category. There is an API to get the text of the legal notice.
+HasClassifieds	Boolean	
+Indicates whether classifieds are allowed in this category.
+*/
