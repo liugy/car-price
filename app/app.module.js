@@ -10,6 +10,8 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var platform_browser_1 = require('@angular/platform-browser');
+var forms_1 = require('@angular/forms');
+var http_1 = require('@angular/http');
 var app_component_1 = require('./app.component');
 var title_component_1 = require('./title/title.component');
 var form_component_1 = require('./form/form.component');
@@ -17,14 +19,26 @@ var maker_component_1 = require('./form/maker.component');
 var progress_component_1 = require('./progress/progress.component');
 var result_component_1 = require('./result/result.component');
 var siumlar_cars_component_1 = require('./siumlar/siumlar.cars.component');
+var trademe_api_service_1 = require('./trademe.api.service');
 var AppModule = (function () {
     function AppModule() {
     }
     AppModule = __decorate([
         core_1.NgModule({
-            imports: [platform_browser_1.BrowserModule],
-            declarations: [app_component_1.AppComponent, title_component_1.TitleComponent, form_component_1.FormComponent,
-                maker_component_1.MakerComponent, progress_component_1.ProgressComponent, result_component_1.ResultComponent, siumlar_cars_component_1.SimularCarsComponent],
+            imports: [
+                platform_browser_1.BrowserModule,
+                forms_1.FormsModule,
+                http_1.HttpModule,
+                http_1.JsonpModule],
+            declarations: [
+                app_component_1.AppComponent,
+                title_component_1.TitleComponent,
+                form_component_1.FormComponent,
+                maker_component_1.MakerComponent,
+                progress_component_1.ProgressComponent,
+                result_component_1.ResultComponent,
+                siumlar_cars_component_1.SimularCarsComponent],
+            providers: [trademe_api_service_1.TrademeApiService],
             bootstrap: [app_component_1.AppComponent]
         }), 
         __metadata('design:paramtypes', [])
