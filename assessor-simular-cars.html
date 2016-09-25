@@ -4,24 +4,23 @@
         <thead>
             <tr>
                 <th>Listing#</th>
-                <th>Model</th>
-                <th>Asking Price</th>
-                <th>year</th>
+                <th>Title</th>
+                <th>Price</th>
+                <th>Year</th>
                 <th>Kilometres</th>
-                <th>Body</th>
                 <th>Engine Size</th>
                 <th>Transmission</th>
-                <th>On Road Costs</th>
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td>1</td>
-                <td>Anna</td>
-                <td>Pitt</td>
-                <td>35</td>
-                <td>New York</td>
-                <td>USA</td>
+            <tr *ngFor="let carInfo of simularCars">
+                <td>{{carInfo.ListingId}}</td>
+                <td>{{carInfo.Title}}</td>
+                <td>{{carInfo.Price | currency:'NZD':true:'1.0-2'}}</td>
+                <td>{{carInfo.Year}}</td>
+                <td>{{carInfo.Odometer}}</td>
+                <td>{{carInfo.EngineSize}}</td>
+                <td>{{carInfo.Transmission}}</td>
             </tr>
         </tbody>
     </table>

@@ -9,7 +9,8 @@ import { FormComponent }   from './form/form.component';
 import { ProgressComponent }   from './progress/progress.component';
 import { ResultComponent }   from './result/result.component';
 import { SimularCarsComponent }   from './siumlar/siumlar.cars.component';
-import { TrademeApiService } from './trademe.api.service'
+import { TrademeApiService } from './trademe.api.service';
+import { AssessService} from './assess.service';
 
 @NgModule({
     imports:      [ 
@@ -24,7 +25,7 @@ import { TrademeApiService } from './trademe.api.service'
         ProgressComponent, 
         ResultComponent, 
         SimularCarsComponent ],
-    providers: [TrademeApiService ],
+    providers: [TrademeApiService, AssessService ],
     bootstrap:    [ AppComponent ]
 })
 export class AppModule { }

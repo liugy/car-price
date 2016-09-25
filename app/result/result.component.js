@@ -12,6 +12,10 @@ var core_1 = require('@angular/core');
 var ResultComponent = (function () {
     function ResultComponent() {
     }
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', Number)
+    ], ResultComponent.prototype, "assessment", void 0);
     ResultComponent = __decorate([
         core_1.Component({
             selector: 'assessor-result',

@@ -5,10 +5,10 @@
     <assessor-form (onStart)="onStart($event)"></assessor-form>
 </div>
 <div class="row">
-    <assessor-progress></assessor-progress>
-    <assessor-result></assessor-result>
+<!--    <assessor-progress></assessor-progress>-->
+    <assessor-result [assessment]="assessment"></assessor-result>
 </div>
 <div class="row">
-    <assessor-simular-cars></assessor-simular-cars>
+    <assessor-simular-cars [simularCars]="simularCars"></assessor-simular-cars>
 </div>
 

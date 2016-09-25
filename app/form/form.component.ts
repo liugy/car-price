@@ -5,7 +5,7 @@ import { Model } from '../model';
 import { Year } from '../year';
 import { TrademeApiService }        from '../trademe.api.service';
 import { YEARS } from '../test/mock.years';
-import { CarInfo} from '../carinfo'
+import { FormInfo} from '../forminfo'
 @Component({
   selector: 'assessor-form',
   templateUrl: 'assessor-form.html'
@@ -23,7 +23,7 @@ export class FormComponent {
   selectedYear:number;
   selectedKilometers:number;
   @Output() 
-  onStart = new EventEmitter<CarInfo>();
+  onStart = new EventEmitter<FormInfo>();
 
   constructor(private trademeService: TrademeApiService) {}
   ngOnInit() {
@@ -71,7 +71,7 @@ export class FormComponent {
   }
   clickStart(){
       
-      this.onStart.emit(new CarInfo(this.selectedMakeName || this.makers[0].Name, 
+      this.onStart.emit(new FormInfo(this.selectedMakeName || this.makers[0].Name, 
                                     this.selectedModel || this.models[0].Value,
                                     this.selectedYear || Number(this.years[0].Value),
                                     this.selectedKilometers || 50000));

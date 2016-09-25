@@ -12,6 +12,10 @@ var core_1 = require('@angular/core');
 var SimularCarsComponent = (function () {
     function SimularCarsComponent() {
     }
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', Array)
+    ], SimularCarsComponent.prototype, "simularCars", void 0);
     SimularCarsComponent = __decorate([
         core_1.Component({
             selector: 'assessor-simular-cars',

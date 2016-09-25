@@ -10,19 +10,44 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 require('./rxjs-operators');
+var forminfo_1 = require('./forminfo');
+var trademe_api_service_1 = require('./trademe.api.service');
+var assess_service_1 = require('./assess.service');
 var AppComponent = (function () {
-    function AppComponent() {
+    function AppComponent(trademeService, assessService) {
+        this.trademeService = trademeService;
+        this.assessService = assessService;
+        this.assessment = 0;
         this.title = "Alan's car assessment tool";
     }
-    AppComponent.prototype.onStart = function (carinfo) {
-        console.log(carinfo);
+    AppComponent.prototype.checkCars = function (cars, formInfo) {
+        var _this = this;
+        if (cars.length < 10) {
+            this.trademeService.queryMoreCars(formInfo)
+                .then(function (simularCars) { return _this.processCars(simularCars, formInfo); }, function (error) { return _this.errorMessage = error; });
+        }
+        else {
+            this.processCars(cars, formInfo);
+        }
+    };
+    AppComponent.prototype.processCars = function (cars, formInfo) {
+        this.simularCars = cars;
+        this.assess(formInfo);
+    };
+    AppComponent.prototype.assess = function (formInfo) {
+        this.assessment = this.assessService.assess(this.simularCars, formInfo, forminfo_1.FormInfo);
+    };
+    AppComponent.prototype.onStart = function (formInfo) {
+        var _this = this;
+        this.trademeService.querySimularCars(formInfo)
+            .then(function (simularCars) { return _this.checkCars(simularCars, formInfo); }, function (error) { return _this.errorMessage = error; });
     };
     AppComponent = __decorate([
         core_1.Component({
             selector: 'car-assessor-app',
             templateUrl: 'car-assessor.html'
         }), 
-        __metadata('design:paramtypes', [])
+        __metadata('design:paramtypes', [trademe_api_service_1.TrademeApiService, assess_service_1.AssessService])
     ], AppComponent);
     return AppComponent;
 }());

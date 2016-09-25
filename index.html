@@ -9,10 +9,7 @@
 
 <link rel="stylesheet" href="style.css">
 <!-- 1. Load libraries -->
-    <script>
-    var testing = true;
 
-    </script>
 <!-- Polyfill(s) for older browsers -->
 <script src="node_modules/core-js/client/shim.min.js"></script>
 <script src="node_modules/zone.js/dist/zone.js"></script>
@@ -53,35 +50,29 @@ System.import('app').catch(function(err){ console.error(err); });
 <script src="node_modules/crypto-js/enc-base64.js"></script>
 <script src="oauth-1.0a.js"></script>
     
-<script src="oauth.keys.js"></script>
+<!--<script src="oauth.keys.js"></script>-->
 <script>
-    
-var request_data = {
-    url: testing?'https://api.tmsandbox.co.nz/v1/Search/Motors/Used.json' : 'https://api.trademe.co.nz/v1/Search/Motors/Used.json', //production
-//    url: 'https://api.tmsandbox.co.nz/v1/Search/Motors/Used.json', //sandbox
-    method: 'GET',
-    data: {
-    }
-};
     
 
     
-$.ajax({
-    url: request_data.url,
-    type: request_data.method,
-    data: oauth.authorize(request_data, token)
-}).done(function(data) {
-    console.log(data);
-});
-        
-$.ajax({
-    url: request_data.url,
-    type: request_data.method,
-    data: request_data.data,
-    headers: oauth.toHeader(oauth.authorize(request_data, token))
-}).done(function(data) {
-    console.log(data);
-});
+
+    
+//$.ajax({
+//    url: request_data.url,
+//    type: request_data.method,
+//    data: oauth.authorize(request_data, token)
+//}).done(function(data) {
+//    console.log(data);
+//});
+//        
+//$.ajax({
+//    url: request_data.url,
+//    type: request_data.method,
+//    data: request_data.data,
+//    headers: oauth.toHeader(oauth.authorize(request_data, token))
+//}).done(function(data) {
+//    console.log(data);
+//});
     </script>
 </body>
 </html>

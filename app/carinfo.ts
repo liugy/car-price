@@ -1,8 +1,11 @@
 export class CarInfo {
   constructor(
-    public Make: string,
-    public Model: string,
+    public ListingId: string,
+    public Title: string,
+    public Price: number,
     public Year: number,
-    public Odometer: number
+    public Odometer: number,
+    public EngineSize: number,
+    public Transmission: string
   ) { }
 }

@@ -12,7 +12,7 @@ var core_1 = require('@angular/core');
 require('../rxjs-operators');
 var trademe_api_service_1 = require('../trademe.api.service');
 var mock_years_1 = require('../test/mock.years');
-var carinfo_1 = require('../carinfo');
+var forminfo_1 = require('../forminfo');
 var FormComponent = (function () {
     function FormComponent(trademeService) {
         this.trademeService = trademeService;
@@ -61,7 +61,7 @@ var FormComponent = (function () {
         }
     };
     FormComponent.prototype.clickStart = function () {
-        this.onStart.emit(new carinfo_1.CarInfo(this.selectedMakeName || this.makers[0].Name, this.selectedModel || this.models[0].Value, this.selectedYear || Number(this.years[0].Value), this.selectedKilometers || 50000));
+        this.onStart.emit(new forminfo_1.FormInfo(this.selectedMakeName || this.makers[0].Name, this.selectedModel || this.models[0].Value, this.selectedYear || Number(this.years[0].Value), this.selectedKilometers || 50000));
         //      this.isAssessing = true;
     };
     __decorate([

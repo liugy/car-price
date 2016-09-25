@@ -10,9 +10,26 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var http_1 = require('@angular/http');
+var http_2 = require('@angular/http');
+var carinfo_1 = require('./carinfo');
 var TrademeApiService = (function () {
     function TrademeApiService(http) {
         this.http = http;
+        this.testing = true; // using sandbox now, since production key is not approved by trademe.co.nz.
+        this.oauth = OAuth({
+            consumer: {
+                key: this.testing ? 'D523BBD5542EA96BCD08440B752CD81C' : 'C49656ECD94211DE6F1AAA5CC95BDD4B',
+                secret: this.testing ? 'E8C34B9DCEC7711E0FE3A13A840AF8E4' : '7E2BE6F6C74C58E2FD05D0734588799B' //sandbox/production
+            },
+            signature_method: 'HMAC-SHA1',
+            hash_function: function (base_string, key) {
+                return CryptoJS.HmacSHA1(base_string, key).toString(CryptoJS.enc.Base64);
+            }
+        });
+        this.token = {
+            key: this.testing ? '3294B1837135195D5F4B819AAC950FF7' : 'BCE4AC1A54060EC75BED28BA3C11ECB2',
+            secret: this.testing ? 'B65D2A91DC59A1E1B4CB6FA18FF42F99' : '86DFC02B93D55568E6D2344C9BCC667A' //sandbox/production
+        };
         this.makersUrl = 'http://api.trademe.co.nz/v1/Categories/UsedCars.json';
     }
     TrademeApiService.prototype.searchModelUrl = function (catagoryNumber) {
@@ -30,9 +47,58 @@ var TrademeApiService = (function () {
             .then(this.extractModels)
             .catch(this.handleError);
     };
+    TrademeApiService.prototype.querySimularCars = function (formInfo) {
+        var request_data = {
+            url: this.testing ? "https://api.tmsandbox.co.nz/v1/Search/Motors/Used.json?Make=" + formInfo.Make + "&Model=" + formInfo.Model + "&year_max=" + (formInfo.Year + 1) + "&year_min=" + (formInfo.Year - 1) : "https://api.trademe.co.nz/v1/Search/Motors/Used.json?Make=" + formInfo.Make + "&Model=" + formInfo.Model + "&year_max=" + (formInfo.Year + 1) + "&year_min=" + (formInfo.Year - 1),
+            method: 'GET',
+            data: {}
+        };
+        var headers = this.oauth.toHeader(this.oauth.authorize(request_data, this.token));
+        var options = new http_2.RequestOptions({
+            headers: headers
+        });
+        return this.http.get(request_data.url, options)
+            .toPromise()
+            .then(this.extractCars.bind(this))
+            .catch(this.handleError);
+    };
     TrademeApiService.prototype.extractMakers = function (res) {
         var body = res.json();
         return body.Subcategories || [];
+    };
+    TrademeApiService.prototype.extractCars = function (res) {
+        var result = new Array();
+        var body = res.json();
+        var price;
+        console.log(body);
+        for (var _i = 0, _a = body.List; _i < _a.length; _i++) {
+            var entry = _a[_i];
+            try {
+                price = Number(entry.PriceDisplay.substring(entry.PriceDisplay.indexOf("$") + 1, entry.PriceDisplay.length).replace(',', ''));
+            }
+            catch (ex) {
+                price = 0;
+            }
+            if (price != 0) {
+                result.push(new carinfo_1.CarInfo(entry.ListingId, entry.Title, price, entry.Year, entry.Odometer, entry.EngineSize, entry.Transmission));
+            }
+        }
+        return result || [];
+    };
+    TrademeApiService.prototype.queryMoreCars = function (formInfo) {
+        var request_data = {
+            url: this.testing ? "https://api.tmsandbox.co.nz/v1/Search/Motors/Used.json?Make=" + formInfo.Make + "&Model=" + formInfo.Model : "https://api.trademe.co.nz/v1/Search/Motors/Used.json?Make=" + formInfo.Make + "&Model=" + formInfo.Model,
+            method: 'GET',
+            data: {}
+        };
+        var headers = this.oauth.toHeader(this.oauth.authorize(request_data, this.token));
+        var options = new http_2.RequestOptions({
+            headers: headers
+        });
+        return this.http.get(request_data.url, options)
+            .toPromise()
+            .then(this.extractCars.bind(this))
+            .catch(this.handleError);
     };
     TrademeApiService.prototype.extractModels = function (res) {
         var body = res.json();

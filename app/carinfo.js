@@ -1,10 +1,13 @@
 "use strict";
 var CarInfo = (function () {
-    function CarInfo(Make, Model, Year, Odometer) {
-        this.Make = Make;
-        this.Model = Model;
+    function CarInfo(ListingId, Title, Price, Year, Odometer, EngineSize, Transmission) {
+        this.ListingId = ListingId;
+        this.Title = Title;
+        this.Price = Price;
         this.Year = Year;
         this.Odometer = Odometer;
+        this.EngineSize = EngineSize;
+        this.Transmission = Transmission;
     }
     return CarInfo;
 }());
